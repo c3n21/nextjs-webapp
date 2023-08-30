@@ -1,0 +1,19 @@
+// For format details, see https://aka.ms/devcontainer.json. For config options, see the README at:
+// https://github.com/microsoft/vscode-dev-containers/tree/v0.187.0/containers/typescript-node
+{
+  "name": "Node.js & TypeScript",
+  "build": {
+    "dockerfile": "Dockerfile",
+    // Update 'VARIANT' to pick a Node version: 16, 18, 20
+    "args": {
+      "VARIANT": "20"
+    }
+  },
+  // need to use `appPort` because `devcontainer/cli` doesn't support `forwardPorts` yet as opposed to official recommendation.
+  // https://github.com/devcontainers/cli/issues/22
+  // however on CLI `appPort` seems to translate to -p which is what we want
+  // "forwardPorts": ["3000:3000"],
+  "appPort": ["3000:3000"],
+  "runArgs": ["--userns=keep-id"],
+  "remoteUser": "node"
+}
