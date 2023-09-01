@@ -1,18 +1,5 @@
-type Movie = {
-  id: string;
-  title: string;
-  year: string;
-  runtime: string;
-  genres: string;
-  director: string;
-  actors: string[];
-  plot: string;
-  posterUrl: string;
-};
-
-type Node = {
-  node: Movie;
-};
+import { MovieNode } from "@/types";
+import MovieEntry from "@/components/MovieEntry";
 
 export async function fetchEdges() {
   try {
@@ -47,28 +34,13 @@ export async function fetchEdges() {
     });
     const { data } = await response.json();
     const { moviesCollection } = data;
-    const { edges } = moviesCollection as { edges: Node[] };
+    const { edges } = moviesCollection as { edges: MovieNode[] };
     return edges;
   } catch (e) {
     console.log("error", e);
     return [];
   }
 }
-
-type MovieEntryProps = {
-  movie: Movie;
-};
-
-const MovieEntry = ({ movie }: MovieEntryProps) => {
-  return (
-    <div key={movie.id} className="movieEntry">
-      <h2>{movie.title}</h2>
-      <img src={movie.posterUrl} alt="No image provided" />
-      <p>{movie.plot}</p>
-      <button>Favourite</button>
-    </div>
-  );
-};
 
 const Movies = async () => {
   const edges = await fetchEdges();
