@@ -1,5 +1,6 @@
 "use client";
 
+import { useFavorites } from "@/app/favorites-provider";
 import { useNotifications } from "@/app/notifications-provider";
 import { Movie } from "@/types";
 import { useState } from "react";
@@ -9,8 +10,10 @@ type MovieEntryProps = {
 };
 
 export const MovieEntry = ({ movie }: MovieEntryProps) => {
-  const { addNotification, removeNotification } = useNotifications();
-  const [isFavorite, setIsFavorite] = useState(false);
+  const { addNotification } = useNotifications();
+  const { favorites, addFavorite, removeFavorite } = useFavorites();
+  const [isFavorite, setIsFavorite] = useState(favorites.has(movie.id));
+
   return (
     <div key={movie.id} className="movieEntry">
       <h2>{movie.title}</h2>
@@ -18,12 +21,16 @@ export const MovieEntry = ({ movie }: MovieEntryProps) => {
       <p>{movie.plot}</p>
       <button
         onClick={() => {
+          let message;
           if (isFavorite) {
-            removeNotification(movie.id);
+            removeFavorite(movie.id);
+            message = `Removed '${movie.title}' from favorites`;
           } else {
-            addNotification(movie.id);
+            addFavorite(movie);
+            message = `Added '${movie.title}' to favorites`;
           }
           setIsFavorite(!isFavorite);
+          addNotification(message);
         }}
       >
         {isFavorite ? "Remove from favorites" : "Add to favorites"}

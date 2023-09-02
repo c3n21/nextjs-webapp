@@ -111,3 +111,15 @@ a {
   padding: 10px;
   margin: 10px;
 }
+
+.notificationContainer {
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  flex-wrap: wrap-reverse;
+  align-items: flex-end;
+  bottom: 0;
+  right: 30px;
+  max-height: 100vh;
+}
