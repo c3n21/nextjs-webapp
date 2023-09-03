@@ -17,7 +17,6 @@ export const MovieEntry = ({ movie }: MovieEntryProps) => {
 
   return (
     <div key={movie.id} className="movieEntry">
-      <h2 className="movieEntryHeader">{movie.title}</h2>
       <Image
         fill
         className="movieEntryImage"
@@ -25,23 +24,31 @@ export const MovieEntry = ({ movie }: MovieEntryProps) => {
         alt="No image provided"
       />
       <div className="movieEntryInfo">
-        <p>{movie.plot}</p>
-        <button
-          onClick={() => {
-            let message;
-            if (isFavorite) {
-              removeFavorite(movie);
-              message = `Removed '${movie.title}' from favorites`;
-            } else {
-              addFavorite(movie);
-              message = `Added '${movie.title}' to favorites`;
-            }
-            setIsFavorite(!isFavorite);
-            addNotification(message);
-          }}
-        >
-          {isFavorite ? "Remove from favorites" : "Add to favorites"}
-        </button>
+        <div className="movieEntryHeader">
+          <h3 className="title">{movie.title}</h3>
+          <button
+            className="addFavoriteButton"
+            onClick={() => {
+              let message;
+              if (isFavorite) {
+                removeFavorite(movie);
+                message = `Removed '${movie.title}' from favorites`;
+              } else {
+                addFavorite(movie);
+                message = `Added '${movie.title}' to favorites`;
+              }
+              setIsFavorite(!isFavorite);
+              addNotification(message);
+            }}
+          >
+            {isFavorite
+              ? String.fromCharCode(parseInt("02605", 16))
+              : String.fromCharCode(parseInt("02606", 16))}
+          </button>
+        </div>
+        <div className="movieEntryDescription">
+          <p>{movie.plot}</p>
+        </div>
       </div>
     </div>
   );
