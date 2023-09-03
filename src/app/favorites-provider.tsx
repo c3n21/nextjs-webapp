@@ -1,28 +1,24 @@
 "use client";
 
 import { Movie } from "@/types";
-import { createContext, useContext } from "react";
+import { createContext, useContext, useMemo, useState } from "react";
+
+type Favorites = Record<Movie["id"], Movie>;
 
 type FavoriteManager = {
-  favorites: Map<string, Movie>;
-  removeFavorite: (movieId: string) => void;
+  favorites: Favorites;
+  removeFavorite: (movie: Movie) => void;
   addFavorite: (movie: Movie) => void;
 };
 
-const favorites = new Map<string, Movie>();
-
-function addFavorite(movie: Movie) {
-  favorites.set(movie.id, movie);
-}
-
-function removeFavorite(movieId: string) {
-  favorites.delete(movieId);
-}
-
 export const FavoriteContext = createContext<FavoriteManager>({
-  favorites,
-  addFavorite,
-  removeFavorite,
+  favorites: {},
+  addFavorite: () => {
+    throw new Error("Missing FavoriteProvider");
+  },
+  removeFavorite: () => {
+    throw new Error("Missing FavoriteProvider");
+  },
 });
 
 export const useFavorites = () => {
@@ -36,7 +32,24 @@ export const FavoriteProvider = ({
 }: {
   children: React.ReactNode;
 }) => {
-  const favoriteManager = useFavorites();
+  const [favorites, setFavorites] = useState<Favorites>({});
+
+  const favoriteManager = useMemo(
+    () => ({
+      favorites,
+      addFavorite: (movie: Movie) => {
+        setFavorites((prev) => ({ ...prev, [movie.id]: movie }));
+      },
+      removeFavorite: (movie: Movie) => {
+        setFavorites((prev) => {
+          const { [movie.id]: _, ...rest } = prev;
+          return rest;
+        });
+      },
+    }),
+    [favorites]
+  );
+
   return (
     <FavoriteContext.Provider value={favoriteManager}>
       {children}

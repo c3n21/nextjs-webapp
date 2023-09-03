@@ -12,7 +12,7 @@ type MovieEntryProps = {
 export const MovieEntry = ({ movie }: MovieEntryProps) => {
   const { addNotification } = useNotifications();
   const { favorites, addFavorite, removeFavorite } = useFavorites();
-  const [isFavorite, setIsFavorite] = useState(favorites.has(movie.id));
+  const [isFavorite, setIsFavorite] = useState(!!favorites[movie.id]);
 
   return (
     <div key={movie.id} className="movieEntry">
@@ -23,7 +23,7 @@ export const MovieEntry = ({ movie }: MovieEntryProps) => {
         onClick={() => {
           let message;
           if (isFavorite) {
-            removeFavorite(movie.id);
+            removeFavorite(movie);
             message = `Removed '${movie.title}' from favorites`;
           } else {
             addFavorite(movie);

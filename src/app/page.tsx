@@ -1,5 +1,6 @@
 import { MovieNode } from "@/types";
 import MovieEntry from "@/components/MovieEntry";
+import Link from "next/link";
 
 export async function fetchEdges() {
   try {
@@ -47,6 +48,7 @@ const Movies = async () => {
   return (
     <div>
       <h1>MOVIES</h1>
+      <Link href="/favorites">Favorites</Link>
       {edges.map((edge) => (
         <MovieEntry key={edge.node.id} movie={edge.node} />
       ))}
