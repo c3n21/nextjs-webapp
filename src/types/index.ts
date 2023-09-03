@@ -13,3 +13,7 @@ export type Movie = {
 export type MovieNode = {
   node: Movie;
 };
+
+export type Notification = {
+  message: string;
+};
