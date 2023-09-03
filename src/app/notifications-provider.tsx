@@ -57,13 +57,14 @@ export const NotificationPopups = () => {
   useEffect(() => {
     if (
       notifications.length > 0 &&
+      // this is to avoid scheduling more removals than notifications
       scheduledRemovals.current < notifications.length
     ) {
       scheduledRemovals.current++;
       setTimeout(() => {
         removeNotification();
         scheduledRemovals.current--;
-      }, 1000);
+      }, 5000);
     }
   }, [notifications.length, removeNotification]);
 
