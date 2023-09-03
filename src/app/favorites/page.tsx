@@ -11,9 +11,11 @@ export const Page = () => {
     <div>
       <h1>FAVORITES</h1>
       <Link href="/">Movies</Link>
-      {Object.values(favorites).map((movie) => (
-        <MovieEntry key={movie.id} movie={movie} />
-      ))}
+      <div className="moviesContainer">
+        {Object.values(favorites).map((movie) => (
+          <MovieEntry key={movie.id} movie={movie} />
+        ))}
+      </div>
     </div>
   );
 };

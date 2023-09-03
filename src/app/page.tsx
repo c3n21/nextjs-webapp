@@ -43,17 +43,21 @@ export async function fetchEdges() {
   }
 }
 
-const Movies = async () => {
+const Page = async () => {
   const edges = await fetchEdges();
   return (
     <div>
-      <h1>MOVIES</h1>
-      <Link href="/favorites">Favorites</Link>
-      {edges.map((edge) => (
-        <MovieEntry key={edge.node.id} movie={edge.node} />
-      ))}
+      <div>
+        <h1>MOVIES</h1>
+        <Link href="/favorites">Favorites</Link>
+      </div>
+      <div className="moviesContainer">
+        {edges.map((edge) => (
+          <MovieEntry key={edge.node.id} movie={edge.node} />
+        ))}
+      </div>
     </div>
   );
 };
 
-export default Movies;
+export default Page;
