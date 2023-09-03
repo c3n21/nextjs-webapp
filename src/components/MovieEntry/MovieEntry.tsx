@@ -3,6 +3,7 @@
 import { useFavorites } from "@/app/favorites-provider";
 import { useNotifications } from "@/app/notifications-provider";
 import { Movie } from "@/types";
+import Image from "next/image";
 import { useState } from "react";
 
 type MovieEntryProps = {
@@ -17,7 +18,8 @@ export const MovieEntry = ({ movie }: MovieEntryProps) => {
   return (
     <div key={movie.id} className="movieEntry">
       <h2 className="movieEntryHeader">{movie.title}</h2>
-      <img
+      <Image
+        fill
         className="movieEntryImage"
         src={movie.posterUrl}
         alt="No image provided"

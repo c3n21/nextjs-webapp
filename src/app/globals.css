@@ -17,6 +17,7 @@
 }
 
 .movieEntry {
+  position: relative;
   padding: 10px;
   margin: 10px;
   grid-column: 2;
