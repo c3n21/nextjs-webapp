@@ -9,6 +9,8 @@ import { useState } from "react";
 type MovieEntryProps = {
   movie: Movie;
 };
+const blackStar = String.fromCharCode(parseInt("02605", 16));
+const whiteStar = String.fromCharCode(parseInt("02606", 16));
 
 export const MovieEntry = ({ movie }: MovieEntryProps) => {
   const { addNotification } = useNotifications();
@@ -41,9 +43,7 @@ export const MovieEntry = ({ movie }: MovieEntryProps) => {
               addNotification(message);
             }}
           >
-            {isFavorite
-              ? String.fromCharCode(parseInt("02605", 16))
-              : String.fromCharCode(parseInt("02606", 16))}
+            {isFavorite ? blackStar : whiteStar}
           </button>
         </div>
         <div className="movieEntryDescription">
