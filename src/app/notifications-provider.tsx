@@ -1,11 +1,13 @@
 "use client";
 
+import { isAbortError } from "next/dist/server/pipe-readable";
 import {
   createContext,
   useContext,
   useEffect,
   useMemo,
   useReducer,
+  useRef,
 } from "react";
 
 type NotificationProviderProps = {
@@ -19,7 +21,7 @@ type Notification = {
 type NotificationManager = {
   notifications: Notification[];
   addNotification: (message: string) => Notification;
-  removeNotification: (notification: Notification) => void;
+  removeNotification: (notification?: Notification) => void;
   clear: () => void;
 };
 
@@ -50,14 +52,20 @@ export const NotificationPopup = ({
 
 export const NotificationPopups = () => {
   const { notifications, removeNotification, clear } = useNotifications();
-  const notification = notifications[0];
+  const scheduledRemovals = useRef(0);
+
   useEffect(() => {
-    if (notification) {
+    if (
+      notifications.length > 0 &&
+      scheduledRemovals.current < notifications.length
+    ) {
+      scheduledRemovals.current++;
       setTimeout(() => {
-        removeNotification(notification);
-      }, 5000);
+        removeNotification();
+        scheduledRemovals.current--;
+      }, 1000);
     }
-  }, [notification, removeNotification]);
+  }, [notifications.length, removeNotification]);
 
   return (
     <div className="notificationContainer">
@@ -84,12 +92,16 @@ export const NotificationPopups = () => {
 
 type ActionPayload =
   | {
-      type: "add" | "remove";
+      type: "add";
       payload: Notification;
     }
   | {
       type: "clear";
       payload?: never;
+    }
+  | {
+      type: "remove";
+      payload?: Notification;
     };
 
 function reducer(
@@ -100,6 +112,9 @@ function reducer(
     case "add":
       return [...notifications, payload];
     case "remove":
+      if (!payload) {
+        return notifications.slice(1);
+      }
       return notifications.filter((notification) => notification !== payload);
     case "clear":
       return [];
