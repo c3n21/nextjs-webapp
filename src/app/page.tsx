@@ -47,11 +47,14 @@ const Page = async () => {
   const edges = await fetchEdges();
   return (
     <div>
-      <div>
-        <h1>MOVIES</h1>
-        <Link href="/favorites">Favorites</Link>
-      </div>
       <div className="moviesContainer">
+        <div className="gridHeader">
+          <h1>MOVIES</h1>
+          <Link href="/favorites" className="next-link">
+            Favorites
+          </Link>
+        </div>
+
         {edges.map((edge) => (
           <MovieEntry key={edge.node.id} movie={edge.node} />
         ))}

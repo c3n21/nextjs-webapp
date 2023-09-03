@@ -63,3 +63,9 @@ body {
     "image info"
     "image info";
 }
+
+.gridHeader {
+  display: flex;
+  justify-content: space-between;
+  grid-column: 2;
+}
