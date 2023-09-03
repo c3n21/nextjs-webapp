@@ -3,11 +3,29 @@
   grid-template-columns: 0.5fr 1fr 0.5fr;
 }
 
-/* create class for movieEntry with padding and margin */
+.movieEntryImage {
+  grid-area: image;
+  padding-right: 20px;
+}
+
+.movieEntryInfo {
+  grid-area: info;
+}
+
+.movieEntryHeader {
+  grid-area: header;
+}
+
 .movieEntry {
   padding: 10px;
   margin: 10px;
   grid-column: 2;
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  grid-template-rows: 1fr 1fr;
+  grid-template-areas:
+    "image header"
+    "image info";
 }
 
 .notificationContainer {
