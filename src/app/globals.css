@@ -71,7 +71,7 @@ body {
   justify-content: flex-end;
   flex-wrap: wrap-reverse;
   align-items: flex-end;
-  bottom: 0;
+  top: 0;
   right: 30px;
   max-height: 100vh;
 }
