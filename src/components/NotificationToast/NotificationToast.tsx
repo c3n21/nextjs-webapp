@@ -2,10 +2,25 @@
 
 import type { Notification } from "@/types";
 
+import "./NotificationToast.css";
+
+type NotificationToastProps = {
+  notification: Notification;
+  onClose: () => void;
+};
+
 export const NotificationToast = ({
   notification,
-}: {
-  notification: Notification;
-}) => {
-  return <p className="notification">{notification.message}</p>;
+  onClose,
+}: NotificationToastProps) => {
+  return (
+    <div className="toastContainer">
+      <button className="closeButton" onClick={onClose}>
+        X
+      </button>
+      <div className="toastMessage">
+        <p>{notification.message}</p>;
+      </div>
+    </div>
+  );
 };

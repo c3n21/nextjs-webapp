@@ -4,8 +4,10 @@ import { useNotifications } from "@/app/notifications-provider";
 import { useEffect, useRef } from "react";
 import { NotificationToast } from "../NotificationToast/NotificationToast";
 
+import "./NotificationToasts.css";
+
 export const NotificationToasts = () => {
-  const { notifications, removeNotification, clear } = useNotifications();
+  const { notifications, removeNotification } = useNotifications();
   const scheduledRemovals = useRef(0);
 
   useEffect(() => {
@@ -23,17 +25,13 @@ export const NotificationToasts = () => {
   }, [notifications.length, removeNotification]);
 
   return (
-    <div className="notificationContainer">
-      <button
-        onClick={() => {
-          clear();
-        }}
-      >
-        Wipe notifications
-      </button>
+    <div className="notificationContainer" aria-live="polite">
       {notifications.map((notification, index) => {
         return (
           <NotificationToast
+            onClose={() => {
+              removeNotification(notification);
+            }}
             // could have used index as key since the index per se carries information about notification order
             // hence you can't have two notifications with the same index at the same time
             key={`${notification.message}-${index}`}

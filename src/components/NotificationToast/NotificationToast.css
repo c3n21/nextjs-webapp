@@ -1,0 +1,34 @@
+.toastContainer {
+  border: 2px solid darkgreen;
+  width: 100%;
+  height: 100%;
+  margin: 10px 0px 0px 0px;
+  pointer-events: none;
+  border-radius: 10px;
+  display: grid;
+  background: green;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr 1fr;
+  grid-template-areas:
+    "close"
+    "toast";
+}
+
+.toastMessage {
+  grid-area: toast;
+  justify-self: center;
+}
+
+.closeButton {
+  background: none;
+  border: none;
+  color: #000000;
+  cursor: pointer;
+  justify-self: end;
+  grid-area: close;
+  height: 15px;
+  margin: 15px 15px 0px 0px;
+  padding: 0;
+  pointer-events: auto;
+  width: fit-content;
+}

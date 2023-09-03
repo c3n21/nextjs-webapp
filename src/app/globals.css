@@ -63,15 +63,3 @@ body {
     "image info"
     "image info";
 }
-
-.notificationContainer {
-  position: fixed;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  flex-wrap: wrap-reverse;
-  align-items: flex-end;
-  top: 0;
-  right: 30px;
-  max-height: 100vh;
-}
