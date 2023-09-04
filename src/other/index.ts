@@ -46,3 +46,83 @@ for (const [testInput, testCallback, testExpectations] of testInputs) {
     )}, Has mutated original input: ${testInput === mutableTestResult}\n\n`
   );
 }
+
+/**
+ *
+ * Union and Intersection Types
+ *
+ * Define TypeScript types for products and their variations. Create a type for
+ * the base product, then use advanced union and intersection types to accurately
+ * represent variations based on size, color, and material. Each variation should
+ * include properties specific to that variation type, while the product should
+ * have common properties like name, price, and description. Here's a starting point for your code:
+ *
+ */
+const product = {
+  name: "T-Shirt",
+  price: 29.99,
+  description: "A comfortable and stylish T-shirt.",
+};
+
+type Product = typeof product;
+
+type SizeVariationProduct = Product & {
+  variationType: "size";
+  size: "S" | "M" | "L" | "XL";
+};
+
+type ColorVariationProduct = Product & {
+  variationType: "color";
+  color: "red" | "blue" | "green";
+};
+
+type MaterialVariationProduct = Product & {
+  variationType: "material";
+  material: "cotton" | "polyester" | "wool";
+};
+
+type ProductVariation =
+  | SizeVariationProduct
+  | ColorVariationProduct
+  | MaterialVariationProduct;
+
+const sizeVariation: SizeVariationProduct = {
+  name: "T-Shirt",
+  price: 34.99,
+  description: "A comfortable and stylish T-shirt.",
+  variationType: "size",
+  size: "L",
+};
+
+const colorVariation: ColorVariationProduct = {
+  name: "T-Shirt",
+  price: 39.99,
+  description: "A comfortable and stylish T-shirt.",
+  variationType: "color",
+  color: "blue",
+};
+
+const materialVariation: MaterialVariationProduct = {
+  name: "T-Shirt",
+  price: 44.99,
+  description: "A comfortable and stylish T-shirt.",
+  variationType: "material",
+  material: "cotton",
+};
+
+const wrongProductVariation: ProductVariation = {
+  name: "T-Shirt",
+  price: 49.99,
+  description: "A comfortable and stylish T-shirt.",
+  variationType: "material",
+  // @ts-expect-error - wrong variation type
+  color: "green",
+};
+
+const correctProductVariation: ProductVariation = {
+  name: "T-Shirt",
+  price: 49.99,
+  description: "A comfortable and stylish T-shirt.",
+  variationType: "color",
+  color: "green",
+};
