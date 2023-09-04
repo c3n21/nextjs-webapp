@@ -126,3 +126,52 @@ const correctProductVariation: ProductVariation = {
   variationType: "color",
   color: "green",
 };
+
+/**
+ *
+ * Type Guards
+ *
+ * You have a function extractCategoryName that can either return a string or
+ * null depending on the input type. Write the type guards isProduct and  isString.
+ */
+interface Category {
+  name: string;
+}
+
+// had to rename it to NewProduct because of the error:
+// "Duplicate identifier 'Product'
+// interface Product {
+interface NewProduct {
+  category: Category;
+}
+
+function isString(arg: unknown): arg is string {
+  return typeof arg === "string";
+}
+
+function isCategory(arg: unknown): arg is Category {
+  return !!(
+    arg &&
+    typeof arg === "object" &&
+    "name" in arg &&
+    typeof arg.name === "string"
+  );
+}
+
+function isProduct(arg: unknown): arg is NewProduct {
+  return !!(
+    arg &&
+    typeof arg === "object" &&
+    "category" in arg &&
+    isCategory(arg.category)
+  );
+}
+
+function processData(input: Category | string | null): string | null {
+  if (isCategory(input)) {
+    return input.name;
+  } else if (isString(input)) {
+    return input;
+  }
+  return null;
+}
