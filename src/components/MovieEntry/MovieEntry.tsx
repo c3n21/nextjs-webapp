@@ -6,8 +6,6 @@ import { Movie } from "@/types";
 import Image from "next/image";
 import { useState } from "react";
 
-import "./MovieEntry.css";
-
 type MovieEntryProps = {
   movie: Movie;
 };
