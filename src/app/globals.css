@@ -7,63 +7,6 @@ body {
   grid-template-columns: 0.5fr 1fr 0.5fr;
 }
 
-.movieEntryImage {
-  grid-area: image;
-  border-radius: 10px;
-}
-
-.movieEntryInfo {
-  grid-area: info;
-  display: grid;
-  grid-template-columns: 1fr;
-  grid-template-rows: 0.5fr 1fr;
-  grid-template-areas:
-    "header"
-    "description";
-}
-
-.title {
-  flex: 1;
-}
-
-.addFavoriteButton {
-  color: #000000;
-  background: none;
-  border: none;
-  margin: 0;
-  padding: 0;
-  cursor: pointer;
-  width: 15px;
-  height: 15px;
-}
-
-.movieEntryHeader {
-  grid-area: header;
-  display: flex;
-  fill: #fff;
-  grid-row: 1;
-}
-
-.movieEntryDescription {
-  grid-area: description;
-  grid-row: 2;
-}
-
-.movieEntry {
-  position: relative;
-  border-radius: 10px;
-  background-color: #fff;
-  box-shadow: 10px 0 0 lightblue;
-  margin: 10px;
-  grid-column: 2;
-  display: grid;
-  grid-template-columns: 0.8fr 2.2fr;
-  grid-template-rows: 1fr 1fr;
-  grid-template-areas:
-    "image info"
-    "image info";
-}
-
 .gridHeader {
   display: flex;
   justify-content: space-between;
