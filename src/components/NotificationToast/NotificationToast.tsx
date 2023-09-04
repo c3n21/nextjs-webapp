@@ -19,7 +19,7 @@ export const NotificationToast = ({
         X
       </button>
       <div className="toastMessage">
-        <p>{notification.message}</p>;
+        <p>{notification.message}</p>
       </div>
     </div>
   );
