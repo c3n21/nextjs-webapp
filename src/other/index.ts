@@ -175,3 +175,29 @@ function processData(input: Category | string | null): string | null {
   }
   return null;
 }
+
+const httpUrlValidatorTestInputs = [
+  "http://condense.tech",
+  "ftp://condense.tech",
+  "http:condense.tech",
+  "http//condense.tech",
+  "http:/condense.tech",
+  "http://asdadajksdad.1231239-asdasd",
+  "http://asdadajksdad.1231239-asdasd.1231239-asdas.1231239-asdas.1231239-asdasddd.1231239-asdasd",
+  "http://asdada---jksdad.1231239-asdasd",
+  "http://asdasd   asdasdad",
+  "http://cond,com",
+];
+
+function urlValidator(url: string): boolean {
+  const urlRegex = /^(https?:\/\/)([A-Za-z0-9-/])+(\.[A-Za-z0-9-/])+/;
+  return urlRegex.test(url);
+}
+
+for (const testInput of httpUrlValidatorTestInputs) {
+  console.log(
+    `[URL VALIDATOR TEST RESULT] ::: Test Input: [${testInput}], Test Passed: ${urlValidator(
+      testInput
+    )}`
+  );
+}
